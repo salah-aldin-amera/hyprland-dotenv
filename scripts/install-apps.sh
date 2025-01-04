@@ -36,6 +36,7 @@ sudo pacman -S --noconfirm dolphin
 # Install Fonts & Arabic-Fonts
 sudo pacman -S --noconfirm noto-fonts
 sudo pacman -S --noconfirm ttf-dejavu ttf-liberation
+sudo pacman -S --noconfirm ttf-font-awesome
 
 # Install Official-Repos Browsers
 sudo pacman -S --noconfirm firefox
