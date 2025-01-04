@@ -1,4 +1,4 @@
-# Refrences
+# References
 
 ## Distro
 - https://wiki.archlinux.org/title/Main_page
