@@ -33,12 +33,13 @@ sudo pacman -S --noconfirm v4l2loopback-dkms v4l2loopback-utils
 sudo pacman -S --noconfirm scrcpy
 
 
-# Install File Managers
-sudo pacman -S --noconfirm nautilus
+# Install KDE Apps
 sudo pacman -S --noconfirm dolphin
+sudo pacman -S --noconfirm gwenview
 
 # Install Gnome Apps
-sudo pacman -S gnome-calculator
+sudo pacman -S --noconfirm nautilus
+sudo pacman -S --noconfirm gnome-calculator
 
 # Install nwg Utils
 sudo pacman -S --noconfirm nwg-look
