@@ -14,6 +14,7 @@ cd ~/Downloads
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 
 # Install Utils
+sudo pacman -S --noconfirm linux-headers
 sudo pacman -S --noconfirm git
 sudo pacman -S --noconfirm tree
 sudo pacman -S --noconfirm neovim
@@ -27,11 +28,21 @@ sudo pacman -S --noconfirm alsa-utils
 sudo pacman -S --noconfirm flatpak
 sudo pacman -S --noconfirm gnome-keyring
 sudo pacman -S --noconfirm seahorse
+sudo pacman -S --noconfirm android-tools
+sudo pacman -S --noconfirm v4l2loopback-dkms v4l2loopback-utils
+sudo pacman -S --noconfirm scrcpy
+
 
 # Install File Managers
 sudo pacman -S --noconfirm nautilus
 sudo pacman -S --noconfirm dolphin
 
+# Install Gnome Apps
+sudo pacman -S gnome-calculator
+
+# Install nwg Utils
+sudo pacman -S --noconfirm nwg-look
+sudo pacman -S --noconfirm nwg-dock-hyprland
 
 # Install Fonts & Arabic-Fonts
 sudo pacman -S --noconfirm noto-fonts
@@ -79,7 +90,7 @@ yay -S --noconfirm tradingview
 
 # Install Flatpak Apps
 flatpak install flathub com.obsproject.Studio
-
+flatpak install com.obsproject.Studio.Plugin.BackgroundRemoval
 
 # Hyprland Utils
 sudo pacman -S --noconfirm waybar
