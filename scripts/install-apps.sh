@@ -105,3 +105,8 @@ sudo pacman -S --noconfirm hyprlock
 
 # Install Entertainment Apps
 sudo pacman -S --noconfirm spotify-launcher
+
+# Install rkvm for keyboard and mouse sharing between linux devices
+yay -S rkvm
+
+
