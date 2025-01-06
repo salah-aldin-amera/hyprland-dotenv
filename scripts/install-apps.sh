@@ -45,10 +45,13 @@ sudo pacman -S --noconfirm gnome-calculator
 sudo pacman -S --noconfirm nwg-look
 sudo pacman -S --noconfirm nwg-dock-hyprland
 
-# Install Fonts & Arabic-Fonts
+# Install Fonts & Icons
 sudo pacman -S --noconfirm noto-fonts
 sudo pacman -S --noconfirm ttf-dejavu ttf-liberation
 sudo pacman -S --noconfirm ttf-font-awesome
+sudo pacman -S --noconfirm papirus-icon-theme
+yay -S --noconfirm numix-icon-theme-git
+yay -S --noconfirm yaru-icon-theme
 
 # Install Official-Repos Browsers
 sudo pacman -S --noconfirm firefox
@@ -93,7 +96,7 @@ yay -S --noconfirm tradingview
 flatpak install flathub com.obsproject.Studio
 flatpak install com.obsproject.Studio.Plugin.BackgroundRemoval
 
-# Hyprland Utils
+# Install Hyprland Utils
 sudo pacman -S --noconfirm waybar
 sudo pacman -S --noconfirm hyprpaper
 sudo pacman -S --noconfirm hyprpicker
