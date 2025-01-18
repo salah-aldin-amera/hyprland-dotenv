@@ -32,7 +32,6 @@ sudo pacman -S --noconfirm android-tools
 sudo pacman -S --noconfirm v4l2loopback-dkms v4l2loopback-utils
 sudo pacman -S --noconfirm scrcpy
 
-
 # Install KDE Apps
 sudo pacman -S --noconfirm dolphin
 sudo pacman -S --noconfirm gwenview
@@ -50,13 +49,14 @@ sudo pacman -S --noconfirm noto-fonts
 sudo pacman -S --noconfirm ttf-dejavu ttf-liberation
 sudo pacman -S --noconfirm ttf-font-awesome
 sudo pacman -S --noconfirm papirus-icon-theme
+sudo pacman -S --noconfirm noto-fonts-emoji
 yay -S --noconfirm numix-icon-theme-git
 yay -S --noconfirm yaru-icon-theme
 
 # Install Official-Repos Browsers
 sudo pacman -S --noconfirm firefox
 sudo pacman -S --noconfirm firefox-developer-edition
-sudo pacman -S --noconfirm chromium
+sudo pacman -S --noconfirm chromiumy
 
 # Install AUR Browsers
 yay -S --noconfirm google-chrome
@@ -101,7 +101,7 @@ sudo pacman -S --noconfirm waybar
 sudo pacman -S --noconfirm hyprpaper
 sudo pacman -S --noconfirm hyprpicker
 sudo pacman -S --noconfirm hyprlock
-
+sudo pacman -S --noconfirm rofi
 
 # Install Entertainment Apps
 sudo pacman -S --noconfirm spotify-launcher
@@ -109,4 +109,9 @@ sudo pacman -S --noconfirm spotify-launcher
 # Install rkvm for keyboard and mouse sharing between linux devices
 yay -S rkvm
 
+# Install nvim plugins
+yay -S --noconfirm neovim-tree-lua-git
+yay -S --noconfirm neovim-telescope
 
+# Install keyboard sounds app
+yay -S --noconfirm mechvibes
