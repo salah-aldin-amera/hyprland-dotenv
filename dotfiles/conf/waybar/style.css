@@ -100,7 +100,8 @@ button:hover {
 #scratchpad,
 #power-profiles-daemon,
 #mpd,
-#custom-playerctl {
+#custom-playerctl,
+#taskbar {
     padding: 0 10px;
     color: #ffffff;
     border-radius: 10px;

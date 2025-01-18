@@ -12,6 +12,7 @@
         "hyprland/mode",
         "hyprland/scratchpad",
         "custom/media",
+	"wlr/taskbar",
         "hyprland/window"
     ],
     "modules-center": [
@@ -22,14 +23,14 @@
 	"custom/playerctl",
     //    "idle_inhibitor",
         "pulseaudio",
-        "network",
-        "power-profiles-daemon",
+    //    "network",
         "cpu",
+        "power-profiles-daemon",
         "memory",
-        "temperature",
+    //    "temperature",
         "backlight",
         "keyboard-state",
-    //    "hyprland/language",
+        "hyprland/language",
         "battery",
         "battery#bat2",
         "tray",
@@ -110,7 +111,7 @@
     },
     "clock": {
         // "timezone": "America/New_York",
-	"format": "{:%Y-%m-%d %H:%M:%S}",
+	"format": "{:%Y-%m-%d %H:%M:%S} UTC",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}",
 	"interval": 1
@@ -219,5 +220,27 @@
     "custom/playerctl": {
         "exec": "playerctl metadata --format '{{title}} - {{artist}}'",
         "interval": 1
+    },
+    "wlr/taskbar": {
+	"format": "{icon}",
+	"icon-size": 14,
+	"icon-theme": "Numix-Circle",
+	"tooltip-format": "{title}",
+	"on-click": "activate",
+	"on-click-middle": "close",
+	"ignore-list": [
+	],
+	"app_ids-mapping": {
+		"firefoxdeveloperedition": "firefox-developer-edition"
+	},
+	"rewrite": {
+		"Firefox Web Browser": "Firefox",
+		"Foot Server": "Terminal"
+	}
+    },
+     "hyprland/language": {
+	"format": "{}",
+	"format-en": "EN",
+	"format-ar": "AR"
     }
 }
