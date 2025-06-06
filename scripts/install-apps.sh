@@ -19,7 +19,6 @@ sudo pacman -S --noconfirm git
 sudo pacman -S --noconfirm tree
 sudo pacman -S --noconfirm neovim
 sudo pacman -S --noconfirm kdeconnect
-sudo pacman -S --noconfirm input-leap
 sudo pacman -S --noconfirm keepassxc
 sudo pacman -S --noconfirm vlc
 sudo pacman -S --noconfirm ffmpeg
@@ -31,10 +30,12 @@ sudo pacman -S --noconfirm seahorse
 sudo pacman -S --noconfirm android-tools
 sudo pacman -S --noconfirm v4l2loopback-dkms v4l2loopback-utils
 sudo pacman -S --noconfirm scrcpy
+sudo pacman -S --noconfirm jq
 
 # Install KDE Apps
 sudo pacman -S --noconfirm dolphin
 sudo pacman -S --noconfirm gwenview
+sudo pacman -S --noconfirm kate
 
 # Install Gnome Apps
 sudo pacman -S --noconfirm nautilus
