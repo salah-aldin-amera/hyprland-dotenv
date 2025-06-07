@@ -31,6 +31,7 @@ sudo pacman -S --noconfirm android-tools
 sudo pacman -S --noconfirm v4l2loopback-dkms v4l2loopback-utils
 sudo pacman -S --noconfirm scrcpy
 sudo pacman -S --noconfirm jq
+sudo pacman -S --noconfirm bluez bluez-utils blueman
 
 # Install KDE Apps
 sudo pacman -S --noconfirm dolphin
@@ -116,3 +117,15 @@ yay -S --noconfirm neovim-telescope
 
 # Install keyboard sounds app
 yay -S --noconfirm mechvibes
+
+
+
+# Enable bluetooth service
+sudo systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service
+
+# Enable postgresql
+sudo -u postgres initdb --locale=C.UTF-8 --encoding=UTF8 -D /var/lib/postgres/data
+sudo systemctl enable postgresql.service
+sudo systemctl start postgresql.service
+
