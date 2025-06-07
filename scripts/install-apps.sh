@@ -17,7 +17,7 @@ sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/ya
 sudo pacman -S --noconfirm linux-headers
 sudo pacman -S --noconfirm git
 sudo pacman -S --noconfirm tree
-sudo pacman -S --noconfirm neovim
+sudo pacman -S --noconfirm vi vim neovim
 sudo pacman -S --noconfirm kdeconnect
 sudo pacman -S --noconfirm keepassxc
 sudo pacman -S --noconfirm vlc
@@ -32,6 +32,8 @@ sudo pacman -S --noconfirm v4l2loopback-dkms v4l2loopback-utils
 sudo pacman -S --noconfirm scrcpy
 sudo pacman -S --noconfirm jq
 sudo pacman -S --noconfirm bluez bluez-utils blueman
+sudo pacman -S --noconfirm usbutils
+sudo pacman -S --noconfirm lsof lshw
 
 # Install KDE Apps
 sudo pacman -S --noconfirm dolphin
