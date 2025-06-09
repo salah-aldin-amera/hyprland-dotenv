@@ -17,9 +17,8 @@ sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/ya
 sudo pacman -S --noconfirm linux-headers
 sudo pacman -S --noconfirm git
 sudo pacman -S --noconfirm tree
-sudo pacman -S --noconfirm neovim
+sudo pacman -S --noconfirm vi vim neovim
 sudo pacman -S --noconfirm kdeconnect
-sudo pacman -S --noconfirm input-leap
 sudo pacman -S --noconfirm keepassxc
 sudo pacman -S --noconfirm vlc
 sudo pacman -S --noconfirm ffmpeg
@@ -31,10 +30,19 @@ sudo pacman -S --noconfirm seahorse
 sudo pacman -S --noconfirm android-tools
 sudo pacman -S --noconfirm v4l2loopback-dkms v4l2loopback-utils
 sudo pacman -S --noconfirm scrcpy
+sudo pacman -S --noconfirm jq
+sudo pacman -S --noconfirm bluez bluez-utils blueman
+sudo pacman -S --noconfirm usbutils
+sudo pacman -S --noconfirm lsof lshw
+sudo pacman -S --noconfirm xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-kde
+sudo pacman -S --noconfirm archlinux-xdg-menu
+sudo pacman -S --noconfirm libreoffice
+sudo pacman -S --noconfirm awesome alacritty
 
 # Install KDE Apps
 sudo pacman -S --noconfirm dolphin
 sudo pacman -S --noconfirm gwenview
+sudo pacman -S --noconfirm kate
 
 # Install Gnome Apps
 sudo pacman -S --noconfirm nautilus
@@ -115,3 +123,15 @@ yay -S --noconfirm neovim-telescope
 
 # Install keyboard sounds app
 yay -S --noconfirm mechvibes
+
+
+
+# Enable bluetooth service
+sudo systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service
+
+# Enable postgresql
+sudo -u postgres initdb --locale=C.UTF-8 --encoding=UTF8 -D /var/lib/postgres/data
+sudo systemctl enable postgresql.service
+sudo systemctl start postgresql.service
+
