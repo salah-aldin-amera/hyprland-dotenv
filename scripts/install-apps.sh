@@ -135,3 +135,14 @@ sudo -u postgres initdb --locale=C.UTF-8 --encoding=UTF8 -D /var/lib/postgres/da
 sudo systemctl enable postgresql.service
 sudo systemctl start postgresql.service
 
+
+# Setup start rkvm
+sudo systemctl enable rkvm-server
+sudo systemctl start rkvm-server
+
+# Generate rkvm certificate and copy server.toml (https://github.com/htrefil/rkvm)
+sudo mkdir /etc/rkvm/
+sudo cp /usr/share/rkvm/examples/server.toml /etc/rkvm/server.toml
+sudo rkvm-certificate-gen --ip-addresses 192.168.1.201 /etc/rkvm/certificate.pem /etc/rkvm/key.pem
+# Then copy the certificate to client
+# sudo scp /etc/rkvm/certificate.pem salahaldin@192.168.1.202:~/
