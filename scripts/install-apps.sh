@@ -38,6 +38,9 @@ sudo pacman -S --noconfirm xdg-desktop-portal xdg-desktop-portal-hyprland xdg-de
 sudo pacman -S --noconfirm archlinux-xdg-menu
 sudo pacman -S --noconfirm libreoffice
 sudo pacman -S --noconfirm awesome alacritty
+sudo pacman -S --noconfirm ffmpegthumbnailer kdegraphics-thumbnailers kimageformats qt5-imageformats qt6-imageformats
+sudo pacman -S --noconfirm ark
+sudo pacman -S --noconfirm yt-dlp
 
 # Install KDE Apps
 sudo pacman -S --noconfirm dolphin
