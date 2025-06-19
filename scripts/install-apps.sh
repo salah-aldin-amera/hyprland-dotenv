@@ -34,7 +34,7 @@ sudo pacman -S --noconfirm jq
 sudo pacman -S --noconfirm bluez bluez-utils blueman
 sudo pacman -S --noconfirm usbutils
 sudo pacman -S --noconfirm lsof lshw
-sudo pacman -S --noconfirm xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-kde
+sudo pacman -S --noconfirm xdg-desktop-portal xdg-desktop-portal-hyprland
 sudo pacman -S --noconfirm archlinux-xdg-menu
 sudo pacman -S --noconfirm libreoffice
 sudo pacman -S --noconfirm awesome alacritty
