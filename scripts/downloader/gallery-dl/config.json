@@ -1,0 +1,13 @@
+{
+    "extractor": {
+        "tiktok": {
+            "filename": "{date:%Y-%m-%d} - {title:.80} [{id}].{extension}",
+            "sleep-request": [1, 15]
+        },
+        "instagram": {
+            "filename": "{date:%Y-%m-%d} - {title:.80} [{id}].{extension}",
+            "sleep-request": [1, 15]
+        }
+    },
+    "cookies-from-browser": "opera"
+}
