@@ -101,12 +101,45 @@ button:hover {
 #power-profiles-daemon,
 #mpd,
 #custom-playerctl,
-#taskbar {
+#taskbar,
+#workspaces,
+#language,
+#window {
     padding: 0 10px;
     color: #ffffff;
     border-radius: 10px;
-    background-color: @widget-bgr-color
+    border: 2px solid transparent;
+
+    background: 
+        linear-gradient(@widget-bgr-color, @widget-bgr-color) padding-box,
+        linear-gradient(135deg, #ff00ff, #00ffff) border-box;
 }
+
+#clock:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#temperature:hover,
+#backlight:hover,
+#network:hover,
+#pulseaudio:hover,
+#wireplumber:hover,
+#custom-media:hover,
+#tray:hover,
+#mode:hover,
+#idle_inhibitor:hover,
+#scratchpad:hover,
+#power-profiles-daemon:hover,
+#mpd:hover,
+#custom-playerctl:hover,
+#window:hover,
+#language:hover {
+    background:
+        linear-gradient(@widget-bgr-color, @widget-bgr-color) padding-box,
+        linear-gradient(135deg, #cc00cc, #00cccc) border-box; /* Slightly darker gradient */
+}
+
 
 #window,
 #workspaces {
@@ -284,14 +317,6 @@ label:focus {
     background-color: #51a37a;
 }
 
-#language {
-    background: @widget-bgr-color;
-    color: white;
-    padding: 0 5px;
-    margin: 0 5px;
-    min-width: 16px;
-    border-radius: 10px;
-}
 
 #keyboard-state {
     background: #97e1ad;

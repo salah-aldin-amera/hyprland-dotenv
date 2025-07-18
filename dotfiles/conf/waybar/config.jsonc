@@ -12,7 +12,7 @@
         "hyprland/mode",
         "hyprland/scratchpad",
         "custom/media",
-	"wlr/taskbar",
+	    "wlr/taskbar",
         "hyprland/window"
     ],
     "modules-center": [
