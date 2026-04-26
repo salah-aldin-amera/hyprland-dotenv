@@ -104,7 +104,11 @@ button:hover {
 #taskbar,
 #workspaces,
 #language,
-#window {
+#window,
+#custom-ups_load,
+#custom-ups_battery,
+#custom-capslock,
+#custom-glance {
     padding: 0 10px;
     color: #ffffff;
     border-radius: 10px;
@@ -134,7 +138,9 @@ button:hover {
 #mpd:hover,
 #custom-playerctl:hover,
 #window:hover,
-#language:hover {
+#language:hover
+#custom-ups_load:hover
+#custom-ups_battery:hover {
     background:
         linear-gradient(@widget-bgr-color, @widget-bgr-color) padding-box,
         linear-gradient(135deg, #cc00cc, #00cccc) border-box; /* Slightly darker gradient */
@@ -363,3 +369,31 @@ label:focus {
     background-color: #0069d4;
 }
 
+#custom-playerctl {
+    font-family: "Monospace", monospace;
+    min-width: 40px;
+}
+
+#custom-capslock {
+    font-family: "Ubuntu Nerd Font", FontAwesome, sans-serif;
+    font-size: 16px;
+}
+
+#custom-capslock.inactive {
+    opacity: 0.3;
+}
+
+
+/* glance widget */
+#custom-glance {
+    padding: 0 8px;
+    color: #cdd6f4;
+}
+
+#custom-glance.active {
+    color: #a6e3a1;
+}
+
+#custom-glance.empty {
+    opacity: 0.4;
+}
