@@ -1,0 +1,203 @@
+
+new_tab sg-auth
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [1], "window_groups": [{"id": 1, "window_ids": [1]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-auth
+launch 'kitty-unserialize-data={"id": 1, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-bills
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [2], "window_groups": [{"id": 2, "window_ids": [2]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-bills
+launch 'kitty-unserialize-data={"id": 2, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-corrective
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [3], "window_groups": [{"id": 3, "window_ids": [3]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-corrective
+launch 'kitty-unserialize-data={"id": 3, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-discussions
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [4], "window_groups": [{"id": 4, "window_ids": [4]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-discussions
+launch 'kitty-unserialize-data={"id": 4, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-energy
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [5], "window_groups": [{"id": 5, "window_ids": [5]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-energy
+launch 'kitty-unserialize-data={"id": 5, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-equipments
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [6], "window_groups": [{"id": 6, "window_ids": [6]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-equipments
+launch 'kitty-unserialize-data={"id": 6, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-eureka
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [7], "window_groups": [{"id": 7, "window_ids": [7]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-eureka
+launch 'kitty-unserialize-data={"id": 7, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-greeniot
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [8], "window_groups": [{"id": 8, "window_ids": [8]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-greeniot
+launch 'kitty-unserialize-data={"id": 8, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-k6
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [9], "window_groups": [{"id": 9, "window_ids": [9]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-k6
+launch 'kitty-unserialize-data={"id": 9, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-mailer
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [10], "window_groups": [{"id": 10, "window_ids": [10]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-mailer
+launch 'kitty-unserialize-data={"id": 10, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-maintenance
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [11], "window_groups": [{"id": 11, "window_ids": [11]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-maintenance
+launch 'kitty-unserialize-data={"id": 11, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-messages
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [12], "window_groups": [{"id": 12, "window_ids": [12]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-messages
+launch 'kitty-unserialize-data={"id": 12, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-nodes
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [13], "window_groups": [{"id": 13, "window_ids": [13]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-nodes
+launch 'kitty-unserialize-data={"id": 13, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-notifications
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [14], "window_groups": [{"id": 14, "window_ids": [14]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-notifications
+launch 'kitty-unserialize-data={"id": 14, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-preventive
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [15], "window_groups": [{"id": 15, "window_ids": [15]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-preventive
+launch 'kitty-unserialize-data={"id": 15, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-scheduling
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [16], "window_groups": [{"id": 16, "window_ids": [16]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-scheduling
+launch 'kitty-unserialize-data={"id": 16, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-sites
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [17], "window_groups": [{"id": 17, "window_ids": [17]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-sites
+launch 'kitty-unserialize-data={"id": 17, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-smartkiz-ws
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [18], "window_groups": [{"id": 18, "window_ids": [18]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-smartkiz-ws
+launch 'kitty-unserialize-data={"id": 18, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-storage
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [19], "window_groups": [{"id": 19, "window_ids": [19]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-storage
+launch 'kitty-unserialize-data={"id": 19, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-stream
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [20], "window_groups": [{"id": 20, "window_ids": [20]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-stream
+launch 'kitty-unserialize-data={"id": 20, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-tesseract
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [21], "window_groups": [{"id": 21, "window_ids": [21]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-tesseract
+launch 'kitty-unserialize-data={"id": 21, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-tree
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [22], "window_groups": [{"id": 22, "window_ids": [22]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-tree
+launch 'kitty-unserialize-data={"id": 22, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-users
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [23], "window_groups": [{"id": 23, "window_ids": [23]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-users
+launch 'kitty-unserialize-data={"id": 23, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-weather
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [24], "window_groups": [{"id": 24, "window_ids": [24]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-weather
+launch 'kitty-unserialize-data={"id": 24, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+new_tab sg-websocket
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [25], "window_groups": [{"id": 25, "window_ids": [25]}]}}
+cd /mnt/salah-aldin/repos/github/salah-aldin-sg/sg-websocket
+launch 'kitty-unserialize-data={"id": 25, "cmd_at_shell_startup": "nvim ."}'
+focus
+
+
+focus_tab 0
