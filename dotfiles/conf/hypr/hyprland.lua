@@ -24,7 +24,13 @@ end
 
 local terminal    = "kitty"
 local fileManager = "dolphin"
-local launcher    = "hyprlauncher -t" -- toggle against the daemon started in autostart
+
+-- Three launchers, deliberately. hyprlauncher is the native one and also
+-- provides the math/emoji/font finders; rofi and wofi stay for their themes,
+-- and rofi backs the clipboard-history picker.
+local launcher    = "hyprlauncher -t" -- toggle against the daemon in autostart
+local wofiMenu    = "wofi --show drun"
+local rofiMenu    = "rofi -show drun -show-icons"
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
@@ -147,9 +153,12 @@ hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 
--- Launcher (hyprlauncher). Prefixes, per hyprlauncher.conf:
+-- Launchers.
+-- hyprlauncher prefixes, per hyprlauncher.conf:
 --   (none) apps   |   . unicode/emoji   |   = math   |   ' fonts
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(launcher))
+hl.bind(mainMod .. " + H", hl.dsp.exec_cmd(launcher))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(wofiMenu))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(rofiMenu))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "l" }))
@@ -165,9 +174,10 @@ hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprshot -m region"))
 -- Colour picker
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
 
--- Clipboard history, through hyprlauncher's dmenu mode
+-- Clipboard history, through rofi's dmenu mode.
+-- hyprlauncher can do this too (`hyprlauncher -m`) if you ever drop rofi.
 hl.bind(mainMod .. " + SHIFT + V",
-    hl.dsp.exec_cmd("cliphist list | hyprlauncher -m | cliphist decode | wl-copy"))
+    hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
 
 -- Audio keys
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),    { locked = true, repeating = true })

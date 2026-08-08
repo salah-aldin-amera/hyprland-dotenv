@@ -105,14 +105,25 @@ a box, drop in `hosts/<hostname>.lua` and re-run the installer.
 4. `./install.sh --configs-only` to regenerate `local.lua` so it picks the host
    file up.
 
-## Launcher: hyprlauncher
+## Launchers
 
-[hyprlauncher](https://github.com/hyprwm/hyprlauncher) replaces rofi and wofi
-entirely — one native Hyprland tool instead of two GTK launchers with a dozen
-themes between them. It runs as a daemon (`hyprlauncher -d` from autostart) so
-`SUPER + SPACE` toggles an already-warm process.
+Three, each earning its keep:
 
-Type a prefix to switch what you are searching:
+| Bind | Launcher | Why |
+| ---- | -------- | --- |
+| `SUPER + H` | [hyprlauncher](https://github.com/hyprwm/hyprlauncher) | native Hyprland tool; also does math, emoji, fonts |
+| `SUPER + R` | rofi | the themed one — `salah-theme.rasi`, 25 themes tracked |
+| `SUPER + W` | wofi | lighter GTK alternative, 5 themes tracked |
+
+rofi also backs the clipboard-history picker (`SUPER + SHIFT + V`).
+hyprlauncher runs as a daemon (`hyprlauncher -d` from autostart) so its window
+opens instantly.
+
+The rofi and wofi themes are **tracked in this repo**, not cloned from the
+upstream collections at install time — a rebuild is offline, reproducible, and
+cannot clobber `salah-theme.rasi`.
+
+hyprlauncher prefixes switch what you are searching:
 
 | Prefix | Searches | Notes |
 | ------ | -------- | ----- |
@@ -121,10 +132,13 @@ Type a prefix to switch what you are searching:
 | `=` | math | via libqalculate, e.g. `= 17 * 3 + 2` |
 | `'` | fonts | copies the family name |
 
-It also covers what rofi was doing for clipboard history, through its dmenu
-mode (`hyprlauncher -m`).
+`hyprlauncher -m` is a dmenu-compatible mode, if you ever want to drop rofi
+from the clipboard pipeline.
 
 Appearance comes from the hyprtoolkit theme, not from `hyprlauncher.conf`.
+Note that `general:show_apps_on_open` exists on hyprlauncher `main` but not the
+released 0.1.6 — hyprlang hard-errors on unknown options, so do not add it
+until the package moves past 0.1.6.
 
 ## Keybinds
 
@@ -132,7 +146,9 @@ Appearance comes from the hyprtoolkit theme, not from `hyprlauncher.conf`.
 
 | Bind | Action |
 | ---- | ------ |
-| `SUPER + SPACE` | hyprlauncher |
+| `SUPER + H` | hyprlauncher |
+| `SUPER + R` | rofi |
+| `SUPER + W` | wofi |
 | `SUPER + Q` | kitty |
 | `SUPER + E` | Dolphin |
 | `SUPER + C` | close window |
@@ -168,14 +184,31 @@ dotfiles/
   conf/                    # mirrors ~/.config/<app>/
     hypr/                  # see above
     waybar/                # modules.jsonc + per-machine layouts
+    rofi/  wofi/           # launcher configs
     kitty/  nvim/  nwg-dock-hyprland/
     kdeglobals             # KDE colour scheme (BreezeDark) for Qt apps
+  home/
+    .zshrc                 # -> ~/.zshrc (oh-my-zsh, fino-time theme)
+  .local/share/rofi/themes/  # 25 rofi themes, incl. salah-theme.rasi
   etc/keyd/                # /etc/keyd/ — system-wide input remap (pc)
 images/wallpapers/         # copied to ~/Pictures/wallpapers
 scripts/                   # helper scripts (downloaders, etc.)
 commands/                  # one-off shell scripts (e.g. audio routing)
 docs/                      # external references
 ```
+
+## Zsh
+
+Oh My Zsh with the **`fino-time`** theme (ships with OMZ, nothing extra to
+fetch) and the `git` plugin. `install.sh` installs OMZ unattended with
+`--keep-zshrc` so it cannot overwrite the tracked `.zshrc`, links the config,
+and switches the login shell.
+
+`~/.zshrc.local` is sourced at the end if present and is not tracked — put
+host-specific tokens, aliases, and paths there.
+
+PATH entries are added only if the directory exists, so the laptop does not
+carry dead `flutter`/`android-sdk` entries just because the desktop has them.
 
 ## Waybar
 
@@ -189,7 +222,7 @@ one to `config.jsonc`, so there is no duplicated module config to keep in sync.
 | Role | Tool |
 | ---- | ---- |
 | Compositor | Hyprland (Lua config) |
-| Launcher / picker | hyprlauncher |
+| Launcher / picker | hyprlauncher (native), rofi + wofi (themed) |
 | Bar | Waybar |
 | Terminal | kitty |
 | Lock / idle | hyprlock + hypridle |
@@ -201,7 +234,7 @@ one to `config.jsonc`, so there is no duplicated module config to keep in sync.
 | Portals | xdg-desktop-portal-hyprland (+ gtk) |
 | Audio | PipeWire + WirePlumber |
 | Files | Dolphin (KDE apps, no full Plasma session) |
-| Shell | Zsh |
+| Shell | Zsh + Oh My Zsh (`fino-time`) |
 
 `xdg-desktop-portal-wlr` is deliberately **not** installed — it competes with
 the Hyprland portal for the ScreenCast interface and breaks screen capture.
@@ -212,10 +245,11 @@ These are not in `install.sh` — they are interactive, or one-shot per machine,
 and do not belong in a re-runnable script. Carried over from the retired
 `scripts/install-apps.sh` (still in git history).
 
-```sh
-# Oh My Zsh (prompts, and rewrites ~/.zshrc)
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+Oh My Zsh is **not** on this list: install.sh installs it unattended
+(`--keep-zshrc`, so it cannot overwrite the tracked `.zshrc`), links the
+config, and switches the login shell to zsh.
 
+```sh
 # PostgreSQL cluster init — only after installing --profile dev
 sudo -u postgres initdb --locale=C.UTF-8 --encoding=UTF8 -D /var/lib/postgres/data
 sudo systemctl enable --now postgresql.service

@@ -28,6 +28,12 @@ gnome-keyring
 qt5-wayland
 qt6-wayland
 
+## Launchers
+# hyprlauncher is the native one (SUPER+H); rofi and wofi are kept as the
+# themed launchers on SUPER+R / SUPER+W. rofi also backs the cliphist picker.
+rofi
+wofi
+
 ## Bar, terminal, notifications, clipboard
 waybar
 kitty
@@ -61,6 +67,10 @@ ttf-liberation
 ttf-font-awesome
 ttf-firacode-nerd
 papirus-icon-theme
+# waybar's wlr/taskbar uses the Numix-Circle theme. It is NOT in
+# numix-icon-theme-git (that ships Numix and Numix-Light only) — it needs this
+# separate package, or the taskbar silently falls back to default icons.
+aur:numix-circle-icon-theme-git
 
 ## Theming bridge (Qt apps follow the dark theme)
 kvantum
@@ -69,6 +79,7 @@ qt6ct
 ## Basics
 git
 base-devel
+curl
 zsh
 jq
 tree

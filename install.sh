@@ -213,6 +213,61 @@ link_waybar() {
     link_file "$CONF/waybar/config-$MACHINE.jsonc" "$dst/config.jsonc"
 }
 
+# Oh My Zsh, then .zshrc. Order matters: the OMZ installer writes its own
+# ~/.zshrc, so --keep-zshrc stops it clobbering ours, and the link happens
+# after in any case. Runs unattended: no prompts, no shell switch mid-script.
+setup_zsh() {
+    step "Setting up zsh"
+
+    if [[ -d "$HOME/.oh-my-zsh" ]]; then
+        ok "oh-my-zsh already installed"
+    else
+        info "installing oh-my-zsh (unattended)"
+        if [[ $DRY_RUN == 1 ]]; then
+            info "[dry-run] would install oh-my-zsh"
+        else
+            RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c \
+                "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+                "" --unattended --keep-zshrc \
+                || warn "oh-my-zsh install failed; ~/.zshrc will still be linked"
+        fi
+    fi
+
+    # ZSH_THEME=fino-time ships with oh-my-zsh, so there is nothing to fetch.
+    link_file "$DOTS/home/.zshrc" "$HOME/.zshrc"
+
+    # Make zsh the login shell, if it is not already. Skipped under
+    # --configs-only, which is deliberately sudo-free.
+    if [[ $CONFIGS_ONLY == 1 ]]; then
+        info "skipping login-shell change (--configs-only avoids sudo)"
+        return 0
+    fi
+
+    local current
+    current=$(getent passwd "$USER" | cut -d: -f7)
+    if [[ $current != *zsh ]]; then
+        info "changing login shell: $current -> /usr/bin/zsh"
+        run sudo chsh -s /usr/bin/zsh "$USER" \
+            && ok "login shell is now zsh (takes effect next login)" \
+            || warn "could not change login shell"
+    else
+        ok "login shell already zsh"
+    fi
+}
+
+# rofi and wofi, with the tracked themes. The themes live in this repo rather
+# than being cloned from the upstream collections at install time, so a rebuild
+# is offline and reproducible and cannot clobber salah-theme.rasi.
+link_launchers() {
+    step "Linking launchers (rofi + wofi themes)"
+
+    link_file "$CONF/rofi"  "$HOME/.config/rofi"
+    link_file "$CONF/wofi"  "$HOME/.config/wofi"
+
+    # rofi looks for user themes here, and config.rasi @theme points into it.
+    link_file "$DOTS/.local/share/rofi/themes" "$HOME/.local/share/rofi/themes"
+}
+
 link_apps() {
     step "Linking application configs"
 
@@ -279,7 +334,9 @@ if [[ $PACKAGES_ONLY == 0 ]]; then
     generate_local_lua
     link_hypr
     link_waybar
+    link_launchers
     link_apps
+    setup_zsh
     install_wallpapers
     install_system_configs
 fi
