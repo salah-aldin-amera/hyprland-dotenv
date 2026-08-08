@@ -269,6 +269,30 @@ link_launchers() {
     link_file "$DOTS/.local/share/rofi/themes" "$HOME/.local/share/rofi/themes"
 }
 
+# Dark theme, everywhere. Qt goes through QT_QPA_PLATFORMTHEME=kde plus
+# kdeglobals (BreezeDark); GTK needs both the settings.ini files and the
+# gsettings keys, because different consumers read different sources: GTK reads
+# the files, while xdg-desktop-portal, libadwaita and GNOME apps read dconf.
+# On salahaldin-pc this only ever lived in dconf, so a fresh machine came up
+# light with nothing in the repo to explain it.
+setup_theme() {
+    step "Applying dark theme"
+
+    link_file "$CONF/gtk-3.0/settings.ini" "$HOME/.config/gtk-3.0/settings.ini"
+    link_file "$CONF/gtk-4.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"
+
+    if ! command -v gsettings >/dev/null 2>&1; then
+        warn "gsettings not found — GTK4/portal apps may stay light"
+        return 0
+    fi
+
+    local schema=org.gnome.desktop.interface
+    run gsettings set "$schema" color-scheme 'prefer-dark'
+    run gsettings set "$schema" gtk-theme 'Adwaita-dark'
+    run gsettings set "$schema" icon-theme 'Adwaita'
+    ok "gsettings: prefer-dark, Adwaita-dark, Adwaita icons"
+}
+
 link_apps() {
     step "Linking application configs"
 
@@ -352,6 +376,7 @@ if [[ $PACKAGES_ONLY == 0 ]]; then
     link_waybar
     link_launchers
     link_apps
+    setup_theme
     setup_zsh
     install_wallpapers
     install_system_configs
