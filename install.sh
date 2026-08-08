@@ -193,6 +193,7 @@ link_hypr() {
     link_file "$CONF/hypr/hyprlock.conf"     "$dst/hyprlock.conf"
     link_file "$CONF/hypr/hyprpaper.conf"    "$dst/hyprpaper.conf"
     link_file "$CONF/hypr/hyprlauncher.conf" "$dst/hyprlauncher.conf"
+    link_file "$CONF/hypr/hyprtoolkit.conf"  "$dst/hyprtoolkit.conf"
 
     # hypridle differs by machine class: the laptop profile suspends.
     if [[ $MACHINE == laptop ]]; then

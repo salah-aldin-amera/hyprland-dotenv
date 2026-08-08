@@ -67,10 +67,9 @@ ttf-liberation
 ttf-font-awesome
 ttf-firacode-nerd
 papirus-icon-theme
-# waybar's wlr/taskbar uses the Numix-Circle theme. It is NOT in
-# numix-icon-theme-git (that ships Numix and Numix-Light only) — it needs this
-# separate package, or the taskbar silently falls back to default icons.
-aur:numix-circle-icon-theme-git
+# adwaita-icon-theme backs both hyprlauncher (via hyprtoolkit) and waybar's
+# wlr/taskbar, so app icons match across the desktop. See hyprtoolkit.conf.
+adwaita-icon-theme
 
 ## Theming bridge (Qt apps follow the dark theme)
 kvantum

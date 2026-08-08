@@ -245,6 +245,26 @@ Note that `brightnessctl` needs a logind seat session, or membership of the
 `video` group — install.sh adds laptop users to `video` so you can fix a stuck
 backlight over ssh.
 
+## Icons
+
+App icons come from **Adwaita** everywhere, so the bar and the launcher agree.
+
+hyprlauncher draws through hyprtoolkit, whose `icon_theme` defaults to empty —
+meaning "resolve via `/usr/share/icons/default/index.theme`", which inherits
+Adwaita. `hyprtoolkit.conf` now pins `icon_theme = Adwaita` explicitly so a
+package update to that file cannot silently change the look, and waybar's
+`wlr/taskbar` names the same theme.
+
+Changing icon themes means editing both:
+
+| File | Key |
+| ---- | --- |
+| `dotfiles/conf/hypr/hyprtoolkit.conf` | `icon_theme` |
+| `dotfiles/conf/waybar/modules.jsonc` | `wlr/taskbar` → `icon-theme` |
+
+`hyprtoolkit.conf` also carries the launcher's colours and fonts — previously
+there was no such file at all, so hyprlauncher ran on built-in defaults.
+
 ## Waybar
 
 Module *definitions* live once in `waybar/modules.jsonc`. The per-machine files
