@@ -48,7 +48,15 @@ hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("brightnessctl -d '*::kbd_backl
 ---- LID SWITCH ----
 --------------------
 
--- Lock on close, wake the panel on open. A host file can override this for a
--- docked box that should keep running with the lid shut.
-hl.bind("switch:on:Lid Switch",  hl.dsp.exec_cmd("loginctl lock-session"),        { locked = true })
-hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("hyprctl dispatch dpms on"),     { locked = true })
+-- Lock on close, wake the panel on open.
+--
+-- Gated through idle-guard.sh so that closing the lid while plugged in does
+-- NOT lock — matching the "never lock on mains power" rule in
+-- hypridle-laptop.conf. SECURITY NOTE: on AC this leaves an unlocked session
+-- behind a closed lid. Drop the idle-guard.sh prefix to always lock on close.
+hl.bind("switch:on:Lid Switch",
+    hl.dsp.exec_cmd("~/.config/hypr/scripts/idle-guard.sh loginctl lock-session"),
+    { locked = true })
+hl.bind("switch:off:Lid Switch",
+    hl.dsp.exec_cmd("hyprctl dispatch dpms on"),
+    { locked = true })

@@ -322,6 +322,14 @@ setup_services() {
         info "adding $USER to the input group (for ydotool); re-login to apply"
         run sudo usermod -aG input "$USER"
     fi
+
+    # brightnessctl works inside a logind seat session without this, but not
+    # from a plain ssh login — which is exactly when you need it to unstick a
+    # screen that got dimmed and never restored.
+    if [[ $MACHINE == laptop ]] && ! id -nG "$USER" | grep -qw video; then
+        info "adding $USER to the video group (for brightnessctl); re-login to apply"
+        run sudo usermod -aG video "$USER"
+    fi
 }
 
 # --- run --------------------------------------------------------------------

@@ -52,8 +52,8 @@ Selected at install time and recorded in `~/.config/hypr/local.lua`.
 | Monitors | explicit layout from host file | auto-detect |
 | Input | ydotool keyboard-driven mouse, keyd mouse remap | touchpad + 3-finger workspace swipe |
 | Backlight | — | `XF86MonBrightness*` → brightnessctl |
-| Lid | — | lock on close |
-| Idle | lock at 15 min, displays off, never suspends | dim 2.5 min, lock 5 min, suspend 30 min |
+| Lid | — | lock on close (battery only) |
+| Idle | lock at 15 min, displays off, never suspends | **on AC: nothing.** On battery: dim 2.5 min, lock 5 min, blank 5.5 min, suspend 30 min |
 | Waybar | UPS load + UPS battery | battery, backlight, network, power profile |
 | Extras | rkvm **server**, apcupsd | rkvm **client**, power-profiles-daemon |
 
@@ -209,6 +209,41 @@ host-specific tokens, aliases, and paths there.
 
 PATH entries are added only if the directory exists, so the laptop does not
 carry dead `flutter`/`android-sdk` entries just because the desktop has them.
+
+## Idle and power (laptop)
+
+**On mains power nothing happens** — no dim, no lock, no blank, no suspend, and
+closing the lid does not lock. On battery the full ladder applies: dim at
+2.5 min, lock at 5, blank at 5.5, suspend at 30.
+
+hypridle has no built-in on-AC condition, so every action is wrapped in
+`scripts/idle-guard.sh`, which exits 0 without acting when any supply of type
+`Mains` reports `online`. It matches by type rather than device name, since
+that is `AC` on some machines and `ADP0`/`ACAD` on others.
+
+> **Security note:** on AC, a closed lid leaves an unlocked session. Remove the
+> `idle-guard.sh` prefix from the lid bind in `machine/laptop.lua` to always
+> lock on close.
+
+Backlight dimming uses `scripts/idle-dim.sh`, not `brightnessctl -s` / `-r`.
+The `-s/-r` pair failed badly in practice: `brightnessctl -s set 10` sets raw
+value **10**, which on a 96000-max panel is 0% — a black screen — and when the
+restore never ran the only way back was ssh. `idle-dim.sh` saves the previous
+raw value to `$XDG_RUNTIME_DIR`, dims to a percentage you can still read, and
+restores unconditionally on activity even if the machine was plugged in
+meanwhile.
+
+Both scripts honour `POWER_SUPPLY_PATH` so the battery path can be tested
+without unplugging:
+
+```sh
+FAKE=$(mktemp -d); mkdir -p $FAKE/AC; echo Mains > $FAKE/AC/type; echo 0 > $FAKE/AC/online
+POWER_SUPPLY_PATH=$FAKE ./idle-guard.sh echo "would run on battery"
+```
+
+Note that `brightnessctl` needs a logind seat session, or membership of the
+`video` group — install.sh adds laptop users to `video` so you can fix a stuck
+backlight over ssh.
 
 ## Waybar
 
