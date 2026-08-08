@@ -296,8 +296,15 @@ install_wallpapers() {
 }
 
 # keyd remaps a specific mouse by USB id; only meaningful on the desktop.
+# Needs sudo, so it is skipped under --configs-only, which is sudo-free.
 install_system_configs() {
     [[ $MACHINE == pc ]] || return 0
+
+    if [[ $CONFIGS_ONLY == 1 ]]; then
+        info "skipping /etc/keyd/mouse.conf (--configs-only avoids sudo)"
+        return 0
+    fi
+
     [[ -f "$DOTS/etc/keyd/mouse.conf" ]] || return 0
 
     step "Installing system configs"
@@ -362,7 +369,8 @@ cat <<EOF
 
   Next:
     - Log out and start Hyprland, or reload:  hyprctl reload
-    - Launcher:      SUPER + SPACE       (. emoji  = math  ' fonts)
+    - Launchers:     SUPER + H hyprlauncher  (. emoji  = math  ' fonts)
+                     SUPER + R rofi   SUPER + W wofi
     - Clipboard:     SUPER + SHIFT + V
     - Screenshot:    SUPER + P / PRINT / SUPER + SHIFT + P
     - Lock:          SUPER + L

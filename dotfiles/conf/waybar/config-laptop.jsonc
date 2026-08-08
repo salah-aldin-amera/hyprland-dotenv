@@ -9,14 +9,14 @@
 {
   "include": ["~/.config/waybar/modules.jsonc"],
 
-  "height": 35,
+  // 36 is the minimum the current module set needs; 35 made waybar warn
+  // "Requested height: 35 is less than the minimum height: 36".
+  "height": 36,
   "margin": 10,
   "spacing": 5,
 
   "modules-left": [
     "hyprland/workspaces",
-    "hyprland/mode",
-    "hyprland/scratchpad",
     "wlr/taskbar",
     "hyprland/window"
   ],

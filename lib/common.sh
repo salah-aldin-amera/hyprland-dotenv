@@ -188,8 +188,12 @@ copy_system_file() {
     local src=$1 dst=$2 mode=${3:-644}
     [[ -e $src ]] || die "copy source missing: $src"
     info "installing $dst"
-    run sudo install -Dm"$mode" "$src" "$dst"
-    ok "installed $dst"
+    if run sudo install -Dm"$mode" "$src" "$dst"; then
+        ok "installed $dst"
+    else
+        warn "could not install $dst (needs sudo)"
+        return 1
+    fi
 }
 
 # --- services ---------------------------------------------------------------
