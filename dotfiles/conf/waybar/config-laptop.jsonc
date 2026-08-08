@@ -1,0 +1,40 @@
+// -*- mode: jsonc -*-
+// Waybar layout — laptop.
+// install.sh links this to ~/.config/waybar/config.jsonc when machine=laptop.
+//
+// Module definitions come from modules.jsonc; this file only decides which
+// modules appear and where. Laptop specifics: battery, backlight, network
+// (wifi), power profiles. No UPS modules — there is no UPS on a laptop, and
+// those scripts would spawn a failing apcaccess every 30s.
+{
+  "include": ["~/.config/waybar/modules.jsonc"],
+
+  "height": 35,
+  "margin": 10,
+  "spacing": 5,
+
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/mode",
+    "hyprland/scratchpad",
+    "wlr/taskbar",
+    "hyprland/window"
+  ],
+
+  "modules-center": ["clock"],
+
+  "modules-right": [
+    "custom/playerctl",
+    "idle_inhibitor",
+    "pulseaudio",
+    "backlight",
+    "cpu",
+    "memory",
+    "network",
+    "power-profiles-daemon",
+    "battery",
+    "hyprland/language",
+    "tray",
+    "custom/capslock"
+  ]
+}

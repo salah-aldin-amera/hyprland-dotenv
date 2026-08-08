@@ -1,0 +1,12 @@
+# Generated per machine by install.sh — the one file that legitimately
+# differs on every box. Tracking it would mean every machine fighting over
+# the same two lines.
+dotfiles/conf/hypr/local.lua
+
+# Neovim state that LazyVim writes into its own config dir
+dotfiles/conf/nvim/lazy-lock.json
+
+# Editor / OS noise
+*.swp
+*~
+.DS_Store

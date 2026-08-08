@@ -1,0 +1,76 @@
+# Core desktop — everything needed for a usable Hyprland session.
+# One package per line. '#' comments and blank lines ignored.
+# Prefix a line with 'aur:' to route it through the AUR helper.
+
+## Compositor + Hypr ecosystem
+hyprland
+hyprpaper
+hyprlock
+hypridle
+hyprpicker
+hyprshot
+hyprpolkitagent
+hyprcursor
+hyprlauncher
+hyprland-qt-support
+hyprtoolkit
+
+## Portals — screen sharing, file pickers.
+# The hyprland portal must be present; xdg-desktop-portal-wlr is deliberately
+# NOT here, it competes for the ScreenCast interface and breaks capture.
+xdg-desktop-portal
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+
+## Session plumbing
+polkit
+gnome-keyring
+qt5-wayland
+qt6-wayland
+
+## Bar, terminal, notifications, clipboard
+waybar
+kitty
+dunst
+cliphist
+wl-clipboard
+
+## Audio
+pipewire
+pipewire-pulse
+pipewire-alsa
+wireplumber
+pavucontrol
+playerctl
+
+## File manager + viewers (KDE apps, no full Plasma session)
+dolphin
+gwenview
+okular
+ark
+ffmpegthumbnailer
+kdegraphics-thumbnailers
+kimageformats
+qt6-imageformats
+
+## Fonts + icons
+noto-fonts
+noto-fonts-emoji
+ttf-dejavu
+ttf-liberation
+ttf-font-awesome
+ttf-firacode-nerd
+papirus-icon-theme
+
+## Theming bridge (Qt apps follow the dark theme)
+kvantum
+qt6ct
+
+## Basics
+git
+base-devel
+zsh
+jq
+tree
+brightnessctl
+network-manager-applet

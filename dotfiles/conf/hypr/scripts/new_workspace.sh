@@ -1,11 +1,13 @@
 #!/bin/bash
 
-# Get a list of current workspaces
-last=$(hyprctl workspaces -j | jq '.[].id' | sort -n | tail -n1)
+# Get highest current workspace id (ignore special workspaces, which have negative ids)
+last=$(hyprctl workspaces -j | jq '[.[].id | select(. > 0)] | max // 0')
 
-# If there are no workspaces (just in case), default to 1
-next=$(( (last > 0 ? last : 0) + 1 ))
+# Next workspace number
+next=$((last + 1))
 
-# Switch to the next workspace
-hyprctl dispatch workspace "$next"
-
+# Switch to the next workspace.
+# Hyprland 0.55+ with a lua config takes lua dispatcher expressions; older hyprlang
+# sessions only understand the legacy syntax. Try lua first, fall back to legacy.
+hyprctl dispatch "hl.dsp.focus({ workspace = $next })" 2>/dev/null | grep -q '^ok' \
+  || hyprctl dispatch workspace "$next"

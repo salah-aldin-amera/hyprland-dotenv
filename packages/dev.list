@@ -1,0 +1,43 @@
+# Development tooling. Installed with --profile dev (implies core).
+
+## Editors
+neovim
+vim
+code
+
+## Languages / runtimes
+nodejs
+npm
+yarn
+python
+python-pip
+rust
+go
+
+## Containers
+docker
+docker-compose
+
+## Databases
+postgresql
+aur:mongodb-bin
+
+## Tools
+github-cli
+lazygit
+ripgrep
+fd
+fzf
+bat
+eza
+btop
+man-db
+openssh
+android-tools
+scrcpy
+
+## GUI dev tools
+aur:apidog-bin
+aur:jetbrains-toolbox
+aur:pgadmin4-desktop
+aur:mongodb-compass

@@ -1,0 +1,306 @@
+#!/usr/bin/env bash
+#
+# hyprland-dotenv installer.
+#
+# Brings a fresh Arch box to a working Hyprland desktop: installs packages,
+# links configs, generates the per-machine local.lua, enables services.
+#
+# Safe to re-run. Existing files are backed up to ~/.dotfiles-backup/<stamp>/
+# before anything is replaced.
+#
+#   ./install.sh                        # interactive: asks pc or laptop
+#   ./install.sh --machine laptop       # non-interactive machine choice
+#   ./install.sh --profile dev          # core + dev packages
+#   ./install.sh --dry-run              # print actions, change nothing
+#   ./install.sh --configs-only         # skip packages, just link configs
+#
+set -uo pipefail
+
+REPO_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+readonly REPO_ROOT
+# shellcheck source=lib/common.sh
+source "$REPO_ROOT/lib/common.sh"
+
+BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
+readonly BACKUP_DIR
+
+DOTS="$REPO_ROOT/dotfiles"
+CONF="$DOTS/conf"
+
+# --- options ----------------------------------------------------------------
+
+MACHINE=""
+PROFILE="core"
+DRY_RUN=0
+ASSUME_YES=0
+CONFIGS_ONLY=0
+PACKAGES_ONLY=0
+
+usage() {
+    sed -n '3,20p' "$0" | sed 's/^# \{0,1\}//'
+    cat <<'EOF'
+
+Options:
+  -m, --machine pc|laptop   Machine class. Prompted for if omitted.
+  -p, --profile PROFILE     core (default) | dev | full
+                              core = usable desktop
+                              dev  = core + development tooling
+                              full = core + dev + browsers, creative, media
+      --configs-only        Link configs and generate local.lua only.
+      --packages-only       Install packages only, touch no configs.
+  -n, --dry-run             Print what would happen; change nothing.
+  -y, --yes                 Do not prompt for confirmation.
+  -h, --help                This message.
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -m|--machine)  MACHINE=${2:-}; shift 2 ;;
+        -p|--profile)  PROFILE=${2:-}; shift 2 ;;
+        --configs-only)  CONFIGS_ONLY=1; shift ;;
+        --packages-only) PACKAGES_ONLY=1; shift ;;
+        -n|--dry-run)  DRY_RUN=1; shift ;;
+        -y|--yes)      ASSUME_YES=1; shift ;;
+        -h|--help)     usage; exit 0 ;;
+        *) die "unknown option: $1 (try --help)" ;;
+    esac
+done
+
+case $PROFILE in
+    core|dev|full) ;;
+    *) die "invalid profile: $PROFILE (want core, dev, or full)" ;;
+esac
+
+# --- machine selection ------------------------------------------------------
+
+# The one genuinely per-box decision, and it changes input config, power
+# behaviour, waybar layout, and which package list runs.
+prompt_machine() {
+    local reply
+    printf '\n%sWhich kind of machine is this?%s\n' "$C_BOLD" "$C_RESET"
+    printf '  %s1)%s pc      — desktop: multi-monitor, no battery, ydotool mouse keys,\n' "$C_BOLD" "$C_RESET"
+    printf '                 UPS widgets, rkvm server\n'
+    printf '  %s2)%s laptop  — touchpad + gestures, backlight keys, lid switch,\n' "$C_BOLD" "$C_RESET"
+    printf '                 battery widget, suspend on idle\n\n'
+    while :; do
+        read -rp "  Choice [1/2]: " reply
+        case $reply in
+            1|pc)     MACHINE=pc;     return 0 ;;
+            2|laptop) MACHINE=laptop; return 0 ;;
+            *) warn "answer 1 or 2" ;;
+        esac
+    done
+}
+
+if [[ -z $MACHINE ]]; then
+    if [[ $ASSUME_YES == 1 ]]; then
+        die "--yes given without --machine; pass --machine pc|laptop"
+    fi
+    prompt_machine
+fi
+
+case $MACHINE in
+    pc|laptop) ;;
+    *) die "invalid machine: $MACHINE (want pc or laptop)" ;;
+esac
+
+# --- preflight --------------------------------------------------------------
+
+require_arch
+require_not_root
+
+HOSTNAME_SHORT=$(uname -n)
+
+step "hyprland-dotenv"
+info "repo:     $REPO_ROOT"
+info "machine:  $MACHINE"
+info "host:     $HOSTNAME_SHORT"
+info "profile:  $PROFILE"
+[[ $DRY_RUN == 1 ]] && warn "dry run — nothing will be changed"
+
+if [[ -f "$CONF/hypr/hosts/$HOSTNAME_SHORT.lua" ]]; then
+    info "host config: dotfiles/conf/hypr/hosts/$HOSTNAME_SHORT.lua"
+else
+    warn "no host config for '$HOSTNAME_SHORT' — monitors will auto-detect."
+    warn "add dotfiles/conf/hypr/hosts/$HOSTNAME_SHORT.lua to pin the layout."
+fi
+
+confirm "Proceed?" || { info "aborted"; exit 0; }
+
+[[ $DRY_RUN == 1 || $CONFIGS_ONLY == 1 ]] || prime_sudo
+
+# --- packages ---------------------------------------------------------------
+
+install_packages() {
+    local -a lists=("$REPO_ROOT/packages/core.list")
+
+    case $PROFILE in
+        dev)  lists+=("$REPO_ROOT/packages/dev.list") ;;
+        full) lists+=("$REPO_ROOT/packages/dev.list" "$REPO_ROOT/packages/full.list") ;;
+    esac
+
+    lists+=("$REPO_ROOT/packages/$MACHINE.list")
+
+    step "Syncing package databases"
+    run sudo pacman -Syu --noconfirm || warn "system update reported errors"
+
+    install_pkg_lists "${lists[@]}"
+}
+
+# --- configs ----------------------------------------------------------------
+
+# local.lua tells hyprland.lua which machine/ and hosts/ file to load. It is
+# generated, not tracked, because it is the one file that differs per box.
+generate_local_lua() {
+    local target="$HOME/.config/hypr/local.lua"
+    local host_arg="nil"
+
+    if [[ -f "$CONF/hypr/hosts/$HOSTNAME_SHORT.lua" ]]; then
+        host_arg="\"$HOSTNAME_SHORT\""
+    fi
+
+    step "Generating local.lua"
+    if [[ $DRY_RUN == 1 ]]; then
+        info "[dry-run] would write $target (machine=$MACHINE host=$host_arg)"
+        return 0
+    fi
+
+    mkdir -p "$(dirname "$target")"
+    cat > "$target" <<EOF
+-- Generated by install.sh on $(date -Iseconds). Not tracked in git.
+-- Re-run ./install.sh to regenerate, or edit by hand.
+return {
+    machine = "$MACHINE",
+    host    = $host_arg,
+}
+EOF
+    ok "wrote ${target/#$HOME/~} (machine=$MACHINE host=$host_arg)"
+}
+
+link_hypr() {
+    step "Linking Hyprland config"
+
+    local dst="$HOME/.config/hypr"
+    mkdir -p "$dst"
+
+    link_file "$CONF/hypr/hyprland.lua"      "$dst/hyprland.lua"
+    link_file "$CONF/hypr/modules"           "$dst/modules"
+    link_file "$CONF/hypr/machine"           "$dst/machine"
+    link_file "$CONF/hypr/hosts"             "$dst/hosts"
+    link_file "$CONF/hypr/scripts"           "$dst/scripts"
+
+    link_file "$CONF/hypr/hyprlock.conf"     "$dst/hyprlock.conf"
+    link_file "$CONF/hypr/hyprpaper.conf"    "$dst/hyprpaper.conf"
+    link_file "$CONF/hypr/hyprlauncher.conf" "$dst/hyprlauncher.conf"
+
+    # hypridle differs by machine class: the laptop profile suspends.
+    if [[ $MACHINE == laptop ]]; then
+        link_file "$CONF/hypr/hypridle-laptop.conf" "$dst/hypridle.conf"
+    else
+        link_file "$CONF/hypr/hypridle.conf"        "$dst/hypridle.conf"
+    fi
+}
+
+link_waybar() {
+    step "Linking waybar"
+    local dst="$HOME/.config/waybar"
+    mkdir -p "$dst"
+
+    link_file "$CONF/waybar/modules.jsonc" "$dst/modules.jsonc"
+    link_file "$CONF/waybar/style.css"     "$dst/style.css"
+    link_file "$CONF/waybar/scripts"       "$dst/scripts"
+    link_file "$CONF/waybar/config-$MACHINE.jsonc" "$dst/config.jsonc"
+}
+
+link_apps() {
+    step "Linking application configs"
+
+    link_file "$CONF/kitty"   "$HOME/.config/kitty"
+    link_file "$CONF/nvim"    "$HOME/.config/nvim"
+
+    # Qt/KDE theme bridge so Dolphin and friends follow the dark theme.
+    copy_file "$CONF/kdeglobals" "$HOME/.config/kdeglobals"
+
+    if [[ -d "$CONF/nwg-dock-hyprland" ]]; then
+        link_file "$CONF/nwg-dock-hyprland" "$HOME/.config/nwg-dock-hyprland"
+    fi
+}
+
+install_wallpapers() {
+    step "Installing wallpapers"
+    local dst="$HOME/Pictures/wallpapers"
+    run mkdir -p "$dst"
+    local f
+    for f in "$REPO_ROOT"/images/wallpapers/*; do
+        [[ -e $f ]] || continue
+        run cp -n "$f" "$dst/" || true
+    done
+    ok "wallpapers in ${dst/#$HOME/~}"
+}
+
+# keyd remaps a specific mouse by USB id; only meaningful on the desktop.
+install_system_configs() {
+    [[ $MACHINE == pc ]] || return 0
+    [[ -f "$DOTS/etc/keyd/mouse.conf" ]] || return 0
+
+    step "Installing system configs"
+    copy_system_file "$DOTS/etc/keyd/mouse.conf" "/etc/keyd/mouse.conf"
+}
+
+# --- services ---------------------------------------------------------------
+
+setup_services() {
+    step "Enabling services"
+
+    if [[ $MACHINE == pc ]]; then
+        # keyd owns the mouse remap; ydotoold backs the keyboard mouse binds.
+        enable_system_service keyd.service
+        enable_system_service ydotoold.service
+    else
+        enable_system_service power-profiles-daemon.service
+        enable_system_service NetworkManager.service
+    fi
+
+    # ydotool needs the invoking user in the input group to reach uinput.
+    if [[ $MACHINE == pc ]] && ! id -nG "$USER" | grep -qw input; then
+        info "adding $USER to the input group (for ydotool); re-login to apply"
+        run sudo usermod -aG input "$USER"
+    fi
+}
+
+# --- run --------------------------------------------------------------------
+
+if [[ $CONFIGS_ONLY == 0 ]]; then
+    install_packages
+fi
+
+if [[ $PACKAGES_ONLY == 0 ]]; then
+    generate_local_lua
+    link_hypr
+    link_waybar
+    link_apps
+    install_wallpapers
+    install_system_configs
+fi
+
+if [[ $CONFIGS_ONLY == 0 ]]; then
+    setup_services
+fi
+
+step "Done"
+if [[ -d $BACKUP_DIR ]]; then
+    info "replaced files backed up to ${BACKUP_DIR/#$HOME/~}"
+fi
+cat <<EOF
+
+  Next:
+    - Log out and start Hyprland, or reload:  hyprctl reload
+    - Launcher:      SUPER + SPACE       (. emoji  = math  ' fonts)
+    - Clipboard:     SUPER + SHIFT + V
+    - Screenshot:    SUPER + P / PRINT / SUPER + SHIFT + P
+    - Lock:          SUPER + L
+
+  Machine class is recorded in ~/.config/hypr/local.lua ($MACHINE).
+  Re-run with --machine to change it.
+EOF
