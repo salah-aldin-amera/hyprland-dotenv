@@ -176,8 +176,17 @@ hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
 
 -- Clipboard history, through rofi's dmenu mode.
 -- hyprlauncher can do this too (`hyprlauncher -m`) if you ever drop rofi.
-hl.bind(mainMod .. " + SHIFT + V",
-    hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
+local clipboardPicker = "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(clipboardPicker))
+hl.bind(mainMod .. " + V",         hl.dsp.exec_cmd(clipboardPicker))
+
+-- WARNING: this one has a cost. Hyprland consumes a bound combo, so a bare
+-- SHIFT + V bind swallows the keystroke and typing a capital V stops working
+-- in every application. It is here because it is the bind from the old
+-- hyprland.conf and it is asked for; the two SUPER variants above do the same
+-- job without eating a letter. Delete this line to get capital V back.
+hl.bind("SHIFT + V", hl.dsp.exec_cmd(clipboardPicker))
 
 -- Audio keys
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),    { locked = true, repeating = true })
