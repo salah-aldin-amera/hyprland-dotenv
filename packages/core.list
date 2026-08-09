@@ -73,23 +73,23 @@ adwaita-icon-theme
 
 ## Theming bridge (Qt apps follow the dark theme)
 #
-# These two are what actually make Qt/KDE apps dark, and both are required:
+# hyprqt6engine is the Qt6 platform theme, selected by
+# QT_QPA_PLATFORMTHEME=hyprqt6engine in hyprland.lua and configured in
+# hyprqt6engine.conf. It replaces both qt6ct and plasma-integration.
 #
-#   plasma-integration  provides KDEPlasmaPlatformTheme6.so, the plugin that
-#                       QT_QPA_PLATFORMTHEME=kde (set in hyprland.lua) loads.
-#                       Without it that env var resolves to nothing and Qt
-#                       falls back to its light default.
-#   breeze              provides /usr/share/color-schemes/BreezeDark.colors,
-#                       the scheme kdeglobals selects with
-#                       ColorScheme=BreezeDark. Without it there is no scheme
-#                       file to read.
-#
-# Symptom when missing: Dolphin, Gwenview and Okular open light while GTK apps
-# are correctly dark, and nothing in the config looks wrong.
-plasma-integration
+# plasma-integration was the obvious choice and the wrong one: it hard-depends
+# on xdg-desktop-portal-kde -> plasma-workspace -> kwin, ~35 packages, and
+# plasma-workspace drops a session file into /usr/share/wayland-sessions/ —
+# which shifted ly's saved session index and booted the laptop into Plasma.
+aur:hyprqt6engine
+
+# breeze supplies the Breeze widget style and
+# /usr/share/color-schemes/BreezeDark.colors, which hyprqt6engine.conf points
+# at. It depends on KDE frameworks only — no kwin, no plasma-workspace.
 breeze
+
+# Optional: only needed if hyprqt6engine.conf sets style = kvantum-*.
 kvantum
-qt6ct
 
 ## Editor
 # install.sh always links ~/.config/nvim, so neovim and the binaries its

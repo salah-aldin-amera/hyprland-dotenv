@@ -38,7 +38,11 @@ local rofiMenu    = "rofi -show drun -show-icons"
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
-hl.env("QT_QPA_PLATFORMTHEME", "kde")
+-- Qt6 theming via hyprqt6engine (see hyprqt6engine.conf). Was "kde", which
+-- needed plasma-integration -> xdg-desktop-portal-kde -> plasma-workspace ->
+-- kwin, ~35 packages, and added a Plasma entry to /usr/share/wayland-sessions
+-- that a greeter can select by accident.
+hl.env("QT_QPA_PLATFORMTHEME", "hyprqt6engine")
 hl.env("SAL_USE_VCLPLUGIN", "kf6")
 hl.env("XDG_MENU_PREFIX", "arch-")
 
