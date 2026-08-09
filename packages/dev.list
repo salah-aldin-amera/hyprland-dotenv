@@ -1,7 +1,8 @@
 # Development tooling. Installed with --profile dev (implies core).
 
 ## Editors
-neovim
+# neovim, lazygit, ripgrep, fd and fzf live in core.list — the nvim config is
+# always linked, so its tooling is not optional.
 vim
 code
 
@@ -24,10 +25,6 @@ aur:mongodb-bin
 
 ## Tools
 github-cli
-lazygit
-ripgrep
-fd
-fzf
 bat
 eza
 btop

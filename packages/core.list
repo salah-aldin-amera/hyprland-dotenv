@@ -75,6 +75,17 @@ adwaita-icon-theme
 kvantum
 qt6ct
 
+## Editor
+# install.sh always links ~/.config/nvim, so neovim and the binaries its
+# plugins shell out to belong in core, not behind --profile dev. lazygit in
+# particular is invoked by snacks.nvim; without it the keybind silently does
+# nothing.
+neovim
+lazygit
+ripgrep
+fd
+fzf
+
 ## Basics
 git
 base-devel
