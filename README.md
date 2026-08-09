@@ -245,6 +245,18 @@ Note that `brightnessctl` needs a logind seat session, or membership of the
 `video` group — install.sh adds laptop users to `video` so you can fix a stuck
 backlight over ssh.
 
+## Changing env vars needs a full restart
+
+`hl.env(...)` in `hyprland.lua` is applied when the compositor **starts**.
+`hyprctl reload` does not update it, and neither does calling `hl.env` through
+`hyprctl eval` — that returns `ok` and changes nothing. Verified by launching a
+process from Hyprland and reading its `/proc/<pid>/environ`: it still carried
+the old value after both.
+
+So after editing any `hl.env` line — `QT_QPA_PLATFORMTHEME` in particular — log
+out and back in. Everything else in this config (binds, rules, look and feel,
+monitors) does apply on `hyprctl reload`.
+
 ## Icons
 
 App icons come from **Adwaita** everywhere, so the bar and the launcher agree.
