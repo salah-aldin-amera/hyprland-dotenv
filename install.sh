@@ -335,6 +335,34 @@ install_system_configs() {
     copy_system_file "$DOTS/etc/keyd/mouse.conf" "/etc/keyd/mouse.conf"
 }
 
+# pacman defaults to ParallelDownloads = 5 and no colour. Bump concurrency to
+# match salahaldin-pc, which makes a big difference on a fresh install pulling
+# a few hundred packages. Idempotent: rewrites the line whether it is set,
+# commented out, or absent.
+tune_pacman() {
+    step "Tuning pacman"
+
+    local conf=/etc/pacman.conf
+    local key val
+    for key in ParallelDownloads Color; do
+        [[ $key == ParallelDownloads ]] && val="ParallelDownloads = 10" || val="Color"
+
+        if grep -qE "^[[:space:]]*#?[[:space:]]*${key}\\b" "$conf"; then
+            # Already present (set or commented) — normalise it.
+            if grep -qxF "$val" "$conf"; then
+                ok "$key already set"
+                continue
+            fi
+            run sudo sed -i -E "s|^[[:space:]]*#?[[:space:]]*${key}\\b.*|${val}|" "$conf" \
+                && ok "set $val" || warn "could not set $key"
+        else
+            # Absent — add under [options].
+            run sudo sed -i "/^\\[options\\]/a ${val}" "$conf" \
+                && ok "added $val" || warn "could not add $key"
+        fi
+    done
+}
+
 # --- services ---------------------------------------------------------------
 
 setup_services() {
@@ -367,6 +395,7 @@ setup_services() {
 # --- run --------------------------------------------------------------------
 
 if [[ $CONFIGS_ONLY == 0 ]]; then
+    tune_pacman
     install_packages
 fi
 
