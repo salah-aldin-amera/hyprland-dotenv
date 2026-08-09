@@ -72,6 +72,22 @@ papirus-icon-theme
 adwaita-icon-theme
 
 ## Theming bridge (Qt apps follow the dark theme)
+#
+# These two are what actually make Qt/KDE apps dark, and both are required:
+#
+#   plasma-integration  provides KDEPlasmaPlatformTheme6.so, the plugin that
+#                       QT_QPA_PLATFORMTHEME=kde (set in hyprland.lua) loads.
+#                       Without it that env var resolves to nothing and Qt
+#                       falls back to its light default.
+#   breeze              provides /usr/share/color-schemes/BreezeDark.colors,
+#                       the scheme kdeglobals selects with
+#                       ColorScheme=BreezeDark. Without it there is no scheme
+#                       file to read.
+#
+# Symptom when missing: Dolphin, Gwenview and Okular open light while GTK apps
+# are correctly dark, and nothing in the config looks wrong.
+plasma-integration
+breeze
 kvantum
 qt6ct
 
