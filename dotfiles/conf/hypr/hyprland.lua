@@ -46,6 +46,11 @@ hl.env("QT_QPA_PLATFORMTHEME", "hyprqt6engine")
 hl.env("SAL_USE_VCLPLUGIN", "kf6")
 hl.env("XDG_MENU_PREFIX", "arch-")
 
+-- Belt and braces for hyprshot invoked outside the keybinds above (a terminal
+-- inherits this too). The binds pass -o explicitly because env changes need a
+-- full compositor restart.
+hl.env("HYPRSHOT_DIR", os.getenv("HOME") .. "/Pictures/screenshots")
+
 -----------------------
 ---- LOOK AND FEEL ----
 -----------------------
@@ -170,10 +175,21 @@ hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "r" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "u" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "d" }))
 
--- Screenshots
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("hyprshot -m window"))
-hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m output"))
-hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprshot -m region"))
+-- Screenshots.
+--
+-- -o is passed explicitly rather than relying on HYPRSHOT_DIR. hyprshot falls
+-- back to XDG_PICTURES_DIR when that variable is unset (~/Pictures, or $HOME
+-- with no user-dirs.dirs at all, which is the case on salahaldin-sgsoft), and
+-- a keybind is not launched through the login shell, so the export in
+-- dotfiles/home/.zshrc never reaches it. The flag also applies on
+-- `hyprctl reload`, whereas hl.env only takes effect at compositor start.
+--
+-- hyprshot mkdir -p's the directory itself, so a fresh machine needs nothing.
+local screenshotDir = os.getenv("HOME") .. "/Pictures/screenshots"
+
+hl.bind(mainMod .. " + P",         hl.dsp.exec_cmd("hyprshot -m window -o " .. screenshotDir))
+hl.bind("PRINT",                   hl.dsp.exec_cmd("hyprshot -m output -o " .. screenshotDir))
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprshot -m region -o " .. screenshotDir))
 
 -- Colour picker
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
