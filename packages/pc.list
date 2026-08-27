@@ -1,0 +1,14 @@
+# Desktop-only packages (machine = pc).
+
+## Keyboard-driven mouse control (modules/mouse-bindings.lua)
+ydotool
+
+## Remap a mouse's side buttons to scroll (dotfiles/etc/keyd/mouse.conf)
+keyd
+
+## Share keyboard/mouse with other Linux boxes over the network.
+# This machine runs rkvm-server; clients run rkvm-client.
+aur:rkvm
+
+## UPS monitoring, feeds the waybar custom/ups_* modules
+apcupsd

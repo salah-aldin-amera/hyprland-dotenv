@@ -1,0 +1,18 @@
+# Laptop-only packages (machine = laptop).
+
+## Power management + battery
+power-profiles-daemon
+upower
+acpi
+
+# brightnessctl lives in core.list — the laptop backlight binds need it, but
+# listing it twice only makes the pacman command line noisier.
+
+## Wifi
+networkmanager
+iwd
+
+## Touchpad gesture support is in-compositor (hl.gesture), nothing to install.
+
+## rkvm client — receive keyboard/mouse from the desktop
+aur:rkvm

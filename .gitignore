@@ -1,0 +1,16 @@
+# Generated per machine by install.sh — the one file that legitimately
+# differs on every box. Tracking it would mean every machine fighting over
+# the same two lines.
+dotfiles/conf/hypr/local.lua
+
+# NOTE: dotfiles/conf/nvim/lazy-lock.json is deliberately TRACKED. It is
+# lazy.nvim's lockfile — pinned plugin commits — and committing it is how every
+# machine ends up on identical plugin versions. Ignoring it meant each box
+# resolved its own versions and drifted (the pc had 50 plugins, the laptop 57).
+# After changing plugins: commit the updated lockfile, then `:Lazy restore` on
+# the other machines.
+
+# Editor / OS noise
+*.swp
+*~
+.DS_Store

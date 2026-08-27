@@ -1,0 +1,59 @@
+# Everything else. Installed with --profile full (implies core + dev).
+# This is the long one — browsers, creative suite, messaging, media.
+
+## Browsers
+firefox
+firefox-developer-edition
+chromium
+aur:google-chrome
+aur:brave-bin
+aur:zen-browser-bin
+aur:microsoft-edge-stable-bin
+
+## Messaging
+telegram-desktop
+discord
+keepassxc
+kdeconnect
+
+## Office
+libreoffice-fresh
+archlinux-xdg-menu
+
+## Media
+vlc
+ffmpeg
+audacity
+obs-studio
+kdenlive
+
+## Creative
+blender
+inkscape
+gimp
+krita
+freecad
+
+## Downloaders (see scripts/downloader/)
+yt-dlp
+gallery-dl
+
+## Sync
+nextcloud-client
+
+## Entertainment
+spotify-launcher
+
+## Hardware / diagnostics
+bluez
+bluez-utils
+blueman
+usbutils
+lsof
+lshw
+v4l2loopback-dkms
+v4l2loopback-utils
+flatpak
+
+## Misc
+aur:mechvibes

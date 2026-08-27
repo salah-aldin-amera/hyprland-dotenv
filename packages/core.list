@@ -1,0 +1,113 @@
+# Core desktop — everything needed for a usable Hyprland session.
+# One package per line. '#' comments and blank lines ignored.
+# Prefix a line with 'aur:' to route it through the AUR helper.
+
+## Compositor + Hypr ecosystem
+hyprland
+hyprpaper
+hyprlock
+hypridle
+hyprpicker
+hyprshot
+hyprpolkitagent
+hyprcursor
+hyprlauncher
+hyprland-qt-support
+hyprtoolkit
+
+## Portals — screen sharing, file pickers.
+# The hyprland portal must be present; xdg-desktop-portal-wlr is deliberately
+# NOT here, it competes for the ScreenCast interface and breaks capture.
+xdg-desktop-portal
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+
+## Session plumbing
+polkit
+gnome-keyring
+qt5-wayland
+qt6-wayland
+
+## Launchers
+# hyprlauncher is the native one (SUPER+H); rofi and wofi are kept as the
+# themed launchers on SUPER+R / SUPER+W. rofi also backs the cliphist picker.
+rofi
+wofi
+
+## Bar, terminal, notifications, clipboard
+waybar
+kitty
+dunst
+cliphist
+wl-clipboard
+
+## Audio
+pipewire
+pipewire-pulse
+pipewire-alsa
+wireplumber
+pavucontrol
+playerctl
+
+## File manager + viewers (KDE apps, no full Plasma session)
+dolphin
+gwenview
+okular
+ark
+ffmpegthumbnailer
+kdegraphics-thumbnailers
+kimageformats
+qt6-imageformats
+
+## Fonts + icons
+noto-fonts
+noto-fonts-emoji
+ttf-dejavu
+ttf-liberation
+ttf-font-awesome
+ttf-firacode-nerd
+papirus-icon-theme
+# adwaita-icon-theme backs both hyprlauncher (via hyprtoolkit) and waybar's
+# wlr/taskbar, so app icons match across the desktop. See hyprtoolkit.conf.
+adwaita-icon-theme
+
+## Theming bridge (Qt apps follow the dark theme)
+#
+# hyprqt6engine is the Qt6 platform theme, selected by
+# QT_QPA_PLATFORMTHEME=hyprqt6engine in hyprland.lua and configured in
+# hyprqt6engine.conf. It replaces both qt6ct and plasma-integration.
+#
+# plasma-integration was the obvious choice and the wrong one: it hard-depends
+# on xdg-desktop-portal-kde -> plasma-workspace -> kwin, ~35 packages, and
+# plasma-workspace drops a session file into /usr/share/wayland-sessions/ —
+# which shifted ly's saved session index and booted the laptop into Plasma.
+aur:hyprqt6engine
+
+# breeze supplies the Breeze widget style and
+# /usr/share/color-schemes/BreezeDark.colors, which hyprqt6engine.conf points
+# at. It depends on KDE frameworks only — no kwin, no plasma-workspace.
+breeze
+
+# Optional: only needed if hyprqt6engine.conf sets style = kvantum-*.
+kvantum
+
+## Editor
+# install.sh always links ~/.config/nvim, so neovim and the binaries its
+# plugins shell out to belong in core, not behind --profile dev. lazygit in
+# particular is invoked by snacks.nvim; without it the keybind silently does
+# nothing.
+neovim
+lazygit
+ripgrep
+fd
+fzf
+
+## Basics
+git
+base-devel
+curl
+zsh
+jq
+tree
+brightnessctl
+network-manager-applet

@@ -1,0 +1,15 @@
+-- Template for local.lua, which install.sh generates per machine.
+--
+-- local.lua is NOT tracked in git: it is the one file that differs on every
+-- box, and tracking it would mean every machine fighting over the same lines.
+--
+-- Copy to local.lua and edit, or just run install.sh.
+
+return {
+    -- "pc" or "laptop". Selects dotfiles/conf/hypr/machine/<machine>.lua.
+    machine = "pc",
+
+    -- Hostname. Selects hosts/<host>.lua if that file exists; a missing host
+    -- file is non-fatal, you just get machine defaults.
+    host = "salahaldin-pc",
+}

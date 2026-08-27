@@ -1,0 +1,36 @@
+// -*- mode: jsonc -*-
+// Waybar layout — desktop (pc).
+// install.sh links this to ~/.config/waybar/config.jsonc when machine=pc.
+//
+// Module definitions come from modules.jsonc; this file only decides which
+// modules appear and where. Desktop specifics: UPS load/battery, no laptop
+// battery, no backlight.
+{
+  "include": ["~/.config/waybar/modules.jsonc"],
+
+  // 36 is the minimum the current module set needs; 35 made waybar warn
+  // "Requested height: 35 is less than the minimum height: 36".
+  "height": 36,
+  "margin": 10,
+  "spacing": 5,
+
+  "modules-left": [
+    "hyprland/workspaces",
+    "wlr/taskbar",
+    "hyprland/window"
+  ],
+
+  "modules-center": ["clock"],
+
+  "modules-right": [
+    "custom/playerctl",
+    "pulseaudio",
+    "cpu",
+    "memory",
+    "custom/ups_load",
+    "custom/ups_battery",
+    "hyprland/language",
+    "tray",
+    "custom/capslock"
+  ]
+}

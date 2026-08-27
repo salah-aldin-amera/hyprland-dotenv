@@ -169,10 +169,12 @@ button:hover {
     /* background-color: #64727D; */
 }
 
-#battery {
-    background-color: #ffffff;
-    color: #000000;
-}
+/* #battery deliberately has no colour override: it inherits the shared module
+ * rule above (white text on the widget background with the gradient border),
+ * so it matches every other module. It used to set a white background with
+ * black text, which made it the only unreadable widget on the bar.
+ * The .charging / .plugged / .warning / .critical states below still override,
+ * because those are meant to stand out. */
 
 #battery.charging, #battery.plugged {
     color: #ffffff;
